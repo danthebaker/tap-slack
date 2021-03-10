@@ -20,7 +20,7 @@ class SlackClient(object):
     def wait(err=None):
         if isinstance(err, SlackApiError):
             if err.response.data.get("error", "") == "ratelimited":
-                delay = int(err.response.headers.get("Retry-After", "0"))
+                delay = int(err.response.headers.get("Retry-After", "3"))
             else:
                 raise err
             time.sleep(delay)

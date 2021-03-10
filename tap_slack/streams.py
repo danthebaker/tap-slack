@@ -78,7 +78,7 @@ class SlackStream:
 
     def _all_channels(self):
         types = "public_channel"
-        enable_private_channels = self.config.get("private_channels", "false")
+        enable_private_channels = self.config.get("private_channels", "true")
         exclude_archived = self.config.get("exclude_archived", "false")
         if enable_private_channels == "true":
             types = "public_channel,private_channel"
@@ -367,6 +367,7 @@ class ThreadsStream(SlackStream):
     name = 'threads'
     key_properties = ['channel_id', 'ts', 'thread_ts']
     replication_method = 'FULL_TABLE'
+    forced_replication_method = 'FULL_TABLE'
     replication_key = 'updated'
     valid_replication_keys = ['updated_at']
     date_fields = ['ts', 'last_read']
