@@ -27,10 +27,10 @@ class SlackClient(object):
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_all_channels(self, types, exclude_archived):
 
         return self.webclient.conversations_list(
@@ -39,10 +39,10 @@ class SlackClient(object):
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_channel(self, include_num_members, channel=None):
         page = self.webclient.conversations_info(channel=channel,
                                                  include_num_members=include_num_members)
@@ -50,10 +50,10 @@ class SlackClient(object):
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_channel_members(self, channel):
         try:
             members_cursor = self.webclient.conversations_members(channel=channel)
@@ -69,10 +69,10 @@ class SlackClient(object):
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_messages(self, channel, oldest, latest):
         try:
             messages = self.webclient \
@@ -98,10 +98,10 @@ class SlackClient(object):
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_thread(self, channel, ts, inclusive, oldest, latest):
         return self.webclient.conversations_replies(channel=channel,
                                                     ts=ts,
@@ -111,19 +111,19 @@ class SlackClient(object):
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_users(self, limit):
         return self.webclient.users_list(limit=limit)
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_user_groups(self, include_count, include_disabled, include_user):
         return self.webclient.usergroups_list(include_count=include_count,
                                               include_disabled=include_disabled,
@@ -131,36 +131,36 @@ class SlackClient(object):
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_teams(self):
         return self.webclient.team_info()
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_files(self, from_ts, to_ts):
         return self.webclient.files_list(from_ts=from_ts, to_ts=to_ts)
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def get_remote_files(self, from_ts, to_ts):
         return self.webclient.files_remote_list(from_ts=from_ts, to_ts=to_ts)
 
     @backoff.on_exception(backoff.constant,
                           (SlackApiError, TimeoutError),
-                          max_tries=2,
+                          max_tries=10,
                           jitter=None,
                           giveup=wait,
-                          interval=0)
+                          interval=1)
     def join_channel(self, channel):
         return self.webclient.conversations_join(channel=channel)
