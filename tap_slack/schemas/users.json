@@ -20,6 +20,15 @@
     "real_name": {
       "type": ["null", "string"]
     },
+    "profile": {
+      "type": ["null", "object"],
+      "properties": {
+        "email": {
+          "type": ["null","string"
+          ]
+        }
+      }
+    },
     "tz": {
       "type": ["null", "string"]
     },
